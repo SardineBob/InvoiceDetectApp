@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,14 +11,7 @@ class MainPage extends StatelessWidget {
       appBar: appBar,
       body: Padding(
         padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-        child: ListView(
-          children: <Widget>[
-            inputBox,
-            getListItem(Icons.note, '1234567890'),
-            getListItem(Icons.cloud, '4543674577'),
-            getListItem(Icons.note, '7648574637'),
-          ],
-        ),
+        child: appPanel,
       ),
     );
   }
@@ -28,7 +23,23 @@ final appBar = AppBar(
   backgroundColor: Colors.grey[700],
 );
 
-///App TextBox
+///APP Panel
+final appPanel = ListView(
+  children: <Widget>[
+    inputRow,
+    invoiceList,
+  ],
+);
+
+///APP InputRow
+final inputRow = Row(
+  children: <Widget>[
+    Expanded(child: inputBox, flex: 8),
+    Expanded(child: inputButton, flex: 1),
+  ],
+);
+
+///APP TextBox
 final inputBox = TextFormField(
   controller: TextEditingController(),
   //應該是for手機，要跳出鍵盤的種類，目前設定純數字
@@ -64,15 +75,30 @@ final inputBox = TextFormField(
   },
 );
 
+///Enter Button
+final inputButton = Ink(
+  decoration: ShapeDecoration(
+    shape: CircleBorder(),
+    color: Colors.grey[700],
+  ),
+  child: IconButton(
+    icon: Icon(Icons.done),
+    color: Colors.white,
+    onPressed: () => {debugPrint('erwer')},
+  ),
+);
+
 ///APP List
 final invoiceList = Center(
-    child: ListView(
-  children: <Widget>[
-    getListItem(Icons.note, '1234567890'),
-    getListItem(Icons.cloud, '4543674577'),
-    getListItem(Icons.note, '7648574637'),
-  ],
-));
+  child: ListView(
+    shrinkWrap: true,
+    children: <Widget>[
+      getListItem(Icons.note, '1234567890'),
+      getListItem(Icons.cloud, '4543674577'),
+      getListItem(Icons.note, '7648574637'),
+    ],
+  ),
+);
 
 /// APP List Item
 Card getListItem(icon, text) {
