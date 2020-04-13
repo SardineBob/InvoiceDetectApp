@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:invoice_detect_app/inputRow.dart';
+import 'package:invoice_detect_app/invoicePage.dart';
+//import 'package:invoice_detect_app/invoiceList.dart';
 
 ///主頁面，會用一個Scaffold物件來包裝裡面的畫面構成
 class MainPage extends StatelessWidget {
@@ -10,7 +11,8 @@ class MainPage extends StatelessWidget {
       appBar: appBar,
       body: Padding(
         padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-        child: appPanel,
+        //child: appPanel,
+        child: appP(),
       ),
     );
   }
@@ -26,28 +28,17 @@ final appBar = AppBar(
 final appPanel = ListView(
   children: <Widget>[
     inputRow,
-    invoiceList,
+    //invoiceList,
+    InvoicePage(),
   ],
 );
 
-///APP List
-final invoiceList = Center(
-  child: ListView(
-    shrinkWrap: true,
+Widget appP() {
+  var invoicePage = InvoicePage();
+  return ListView(
     children: <Widget>[
-      getListItem(Icons.note, '1234567890'),
-      getListItem(Icons.cloud, '4543674577'),
-      getListItem(Icons.note, '7648574637'),
+      Input(pressFunc: invoicePage.pushInvoice),
+      invoicePage,
     ],
-  ),
-);
-
-/// APP List Item
-Card getListItem(icon, text) {
-  return Card(
-    child: ListTile(
-      leading: Icon(icon),
-      title: Text(text, style: TextStyle(fontSize: 40)),
-    ),
   );
 }

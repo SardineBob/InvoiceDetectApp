@@ -56,3 +56,31 @@ final inputButton = Ink(
     onPressed: () => {debugPrint('erwer')},
   ),
 );
+
+class Input extends StatelessWidget {
+  final Function() pressFunc;
+
+  const Input({Key key, this.pressFunc}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final inputButton1 = Ink(
+      decoration: ShapeDecoration(
+        shape: CircleBorder(),
+        color: Colors.grey[700],
+      ),
+      child: IconButton(
+        icon: Icon(Icons.done),
+        color: Colors.white,
+        onPressed: () => pressFunc(),
+      ),
+    );
+
+    return Row(
+      children: <Widget>[
+        Expanded(child: inputBox, flex: 8),
+        Expanded(child: inputButton1, flex: 1),
+      ],
+    );
+  }
+}
