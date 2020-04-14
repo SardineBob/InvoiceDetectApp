@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_detect_app/inputRow.dart';
 import 'package:invoice_detect_app/invoicePage.dart';
-//import 'package:invoice_detect_app/invoiceList.dart';
 
 ///主頁面，會用一個Scaffold物件來包裝裡面的畫面構成
 class MainPage extends StatelessWidget {
@@ -11,8 +10,7 @@ class MainPage extends StatelessWidget {
       appBar: appBar,
       body: Padding(
         padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-        //child: appPanel,
-        child: appP(),
+        child: appPanel(),
       ),
     );
   }
@@ -25,19 +23,11 @@ final appBar = AppBar(
 );
 
 ///APP Panel
-final appPanel = ListView(
-  children: <Widget>[
-    inputRow,
-    //invoiceList,
-    InvoicePage(),
-  ],
-);
-
-Widget appP() {
+Widget appPanel() {
   var invoicePage = InvoicePage();
   return ListView(
     children: <Widget>[
-      Input(pressFunc: invoicePage.pushInvoice),
+      InputRow(pressFunc: invoicePage.pushInvoice),
       invoicePage,
     ],
   );

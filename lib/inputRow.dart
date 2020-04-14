@@ -1,16 +1,39 @@
 import 'package:flutter/material.dart';
 
-///APP InputRow
-final inputRow = Row(
-  children: <Widget>[
-    Expanded(child: inputBox, flex: 8),
-    Expanded(child: inputButton, flex: 1),
-  ],
-);
+class InputRow extends StatelessWidget {
+  final Function(IconData, String) pressFunc;
+
+  const InputRow({Key key, this.pressFunc}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final inputButton = Ink(
+      decoration: ShapeDecoration(
+        shape: CircleBorder(),
+        color: Colors.grey[700],
+      ),
+      child: IconButton(
+        icon: Icon(Icons.done),
+        color: Colors.white,
+        onPressed: () => pressFunc(Icons.cloud, inputBoxController.text),
+      ),
+    );
+
+    return Row(
+      children: <Widget>[
+        Expanded(child: inputBox, flex: 8),
+        Expanded(child: inputButton, flex: 1),
+      ],
+    );
+  }
+}
+
+///APP TextBoxController
+final inputBoxController = TextEditingController();
 
 ///APP TextBox
 final inputBox = TextFormField(
-  controller: TextEditingController(),
+  controller: inputBoxController,
   //應該是for手機，要跳出鍵盤的種類，目前設定純數字
   keyboardType: TextInputType.number,
   //autofocus: true,
@@ -43,44 +66,3 @@ final inputBox = TextFormField(
     return null;
   },
 );
-
-///Done Button
-final inputButton = Ink(
-  decoration: ShapeDecoration(
-    shape: CircleBorder(),
-    color: Colors.grey[700],
-  ),
-  child: IconButton(
-    icon: Icon(Icons.done),
-    color: Colors.white,
-    onPressed: () => {debugPrint('erwer')},
-  ),
-);
-
-class Input extends StatelessWidget {
-  final Function() pressFunc;
-
-  const Input({Key key, this.pressFunc}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final inputButton1 = Ink(
-      decoration: ShapeDecoration(
-        shape: CircleBorder(),
-        color: Colors.grey[700],
-      ),
-      child: IconButton(
-        icon: Icon(Icons.done),
-        color: Colors.white,
-        onPressed: () => pressFunc(),
-      ),
-    );
-
-    return Row(
-      children: <Widget>[
-        Expanded(child: inputBox, flex: 8),
-        Expanded(child: inputButton1, flex: 1),
-      ],
-    );
-  }
-}
